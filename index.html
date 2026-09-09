@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Brain TAX — Train Your Brain</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+ --bg:#070914;
+ --card:#101528;
+ --card2:#151c33;
+ --text:#f7f8ff;
+ --muted:#9da7c5;
+ --blue:#5b8cff;
+ --purple:#9b5cff;
+ --green:#35d49a;
+ --red:#ff5577;
+ --gold:#ffc857;
+}
+body{
+ font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+ background:
+ radial-gradient(circle at 20% 10%,#24326a55,transparent 30%),
+ radial-gradient(circle at 90% 20%,#702e8a44,transparent 28%),
+ var(--bg);
+ color:var(--text);
+ min-height:100vh;
+ overflow-x:hidden;
+}
+button,input{font:inherit}
+button{cursor:pointer;border:0}
+.hidden{display:none!important}
+
+/* INTRO */
+#intro{
+ position:fixed;inset:0;z-index:100;
+ display:flex;align-items:center;justify-content:center;
+ background:#050610;
+ overflow:hidden;
+}
+.orb{
+ position:absolute;width:320px;height:320px;border-radius:50%;
+ background:radial-gradient(circle,#735cff55,transparent 65%);
+ filter:blur(15px);
+ animation:orb 5s infinite alternate ease-in-out;
+}
+.orb.o2{width:240px;height:240px;background:radial-gradient(circle,#00d9ff44,transparent 65%);animation-delay:1s}
+@keyframes orb{to{transform:scale(1.5) translate(40px,-20px)}}
+.introBox{text-align:center;position:relative;animation:introIn 1s ease}
+@keyframes introIn{from{opacity:0;transform:scale(.7) translateY(30px)}to{opacity:1;transform:none}}
+.logo{
+ width:115px;height:115px;border-radius:32px;margin:auto;
+ display:flex;align-items:center;justify-content:center;
+ font-size:58px;font-weight:900;
+ background:linear-gradient(135deg,#6b63ff,#b34cff);
+ box-shadow:0 0 60px #765dff88, inset 0 0 25px #ffffff22;
+ animation:logoFloat 2.5s infinite ease-in-out;
+}
+@keyframes logoFloat{50%{transform:translateY(-12px) rotate(2deg)}}
+.brand{font-size:42px;font-weight:950;letter-spacing:2px;margin-top:25px}
+.brand span{color:#8d7cff}
+.tag{color:#aab4d4;margin:8px 0 28px}
+.start{
+ padding:15px 42px;border-radius:16px;color:white;font-weight:800;
+ background:linear-gradient(135deg,#5b7cff,#a04dff);
+ box-shadow:0 12px 35px #775dff44;
+ transition:.2s;
+}
+.start:hover{transform:translateY(-3px);box-shadow:0 16px 45px #775dff77}
+
+/* NAME */
+#nameScreen{
+ min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+}
+.nameCard{
+ width:min(460px,100%);padding:35px;border:1px solid #ffffff12;
+ border-radius:28px;background:#101528dd;backdrop-filter:blur(18px);
+ box-shadow:0 25px 80px #0008;text-align:center;
+ animation:introIn .6s ease;
+}
+.nameIcon{font-size:55px;margin-bottom:15px}
+.nameCard h1{font-size:30px}
+.nameCard p{color:var(--muted);margin:8px 0 25px}
+.nameInput{
+ width:100%;padding:16px 18px;border-radius:15px;
+ border:1px solid #ffffff18;background:#080c1b;color:white;outline:0;
+ transition:.2s;
+}
+.nameInput:focus{border-color:#738cff;box-shadow:0 0 0 4px #738cff18}
+.enterBtn{
+ width:100%;padding:16px;margin-top:14px;border-radius:15px;
+ background:linear-gradient(135deg,#5b8cff,#9c55ff);color:white;font-weight:900;
+}
+
+/* APP */
+#app{min-height:100vh}
+header{
+ position:sticky;top:0;z-index:20;
+ display:flex;align-items:center;justify-content:space-between;
+ padding:15px max(18px,calc((100% - 1150px)/2));
+ background:#070914dd;backdrop-filter:blur(18px);
+ border-bottom:1px solid #ffffff0c;
+}
+.headBrand{display:flex;align-items:center;gap:10px;font-weight:950;font-size:20px}
+.miniLogo{
+ width:38px;height:38px;border-radius:11px;display:grid;place-items:center;
+ background:linear-gradient(135deg,#5d6dff,#a94eff);
+}
+.headRight{display:flex;align-items:center;gap:10px}
+.xp{
+ padding:8px 12px;border-radius:12px;background:#171d34;
+ color:#ffd15c;font-weight:800;font-size:14px;
+}
+.backBtn{
+ padding:9px 14px;border-radius:12px;background:#151b30;color:#fff;
+ border:1px solid #ffffff12;
+}
+main{width:min(1150px,calc(100% - 30px));margin:auto;padding:25px 0 50px}
+.hero{
+ padding:28px;border-radius:28px;
+ background:linear-gradient(135deg,#111a38,#17112c);
+ border:1px solid #ffffff10;
+ position:relative;overflow:hidden;margin-bottom:22px;
+}
+.hero:after{
+ content:"";position:absolute;width:220px;height:220px;border-radius:50%;
+ right:-70px;top:-100px;background:#765cff33;filter:blur(5px);
+}
+.hello{color:#aab5d4;font-size:14px}
+.hero h1{font-size:clamp(28px,5vw,44px);margin:5px 0}
+.hero h1 span{background:linear-gradient(90deg,#6e91ff,#c477ff);color:transparent;background-clip:text}
+.hero p{color:#9ca7c4}
+.stats{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.stat{
+ padding:11px 15px;border-radius:13px;background:#080d1d99;
+ border:1px solid #ffffff0c;color:#dce2fa;font-size:14px;
+}
+.sectionTitle{margin:25px 3px 13px;font-size:19px}
+.modes{
+ display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+}
+.mode{
+ text-align:left;padding:20px;border-radius:22px;background:var(--card);
+ border:1px solid #ffffff10;color:white;position:relative;overflow:hidden;
+ transition:.25s;
+}
+.mode:hover{transform:translateY(-6px);border-color:#7185ff66;box-shadow:0 15px 40px #0005}
+.modeIcon{font-size:36px;margin-bottom:13px}
+.mode h3{font-size:18px}
+.mode p{font-size:13px;color:#929dbc;margin-top:5px;line-height:1.5}
+.mode .arrow{position:absolute;right:15px;bottom:15px;color:#778cff;font-size:22px}
+
+/* QUIZ */
+.quizTop{
+ display:flex;justify-content:space-between;align-items:center;gap:10px;
+ margin-bottom:14px;flex-wrap:wrap;
+}
+.badge{padding:7px 11px;border-radius:10px;background:#18203a;color:#aebaff;font-size:13px;font-weight:800}
+.time{color:#62e5b3;font-weight:800}
+.progress{
+ height:8px;background:#181e31;border-radius:99px;overflow:hidden;margin-bottom:20px;
+}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#5b8cff,#b056ff);transition:.4s}
+.questionCard{
+ padding:26px;border-radius:25px;background:var(--card);
+ border:1px solid #ffffff10;
+}
+.qNum{color:#7785aa;font-size:13px;font-weight:800}
+.question{
+ font-size:clamp(20px,3.5vw,28px);line-height:1.4;margin:9px 0 5px;font-weight:850;
+}
+.eng{color:#8f9ab7;font-size:14px;margin-bottom:22px}
+.options{display:grid;gap:12px}
+.option{
+ width:100%;text-align:left;padding:17px;border-radius:16px;
+ background:#151c31;color:#f4f6ff;border:1px solid #ffffff0c;
+ transition:.2s;display:flex;gap:12px;align-items:center;
+}
+.option:hover{background:#1b2541;border-color:#7587ff66;transform:translateX(3px)}
+.option .letter{
+ width:32px;height:32px;border-radius:9px;background:#202a49;
+ display:grid;place-items:center;font-weight:900;flex:none;
+}
+.option.correct{background:#103a2d;border-color:#35d49a}
+.option.wrong{background:#411828;border-color:#ff5577}
+.next{
+ width:100%;margin-top:16px;padding:15px;border-radius:15px;
+ background:linear-gradient(135deg,#526fff,#9952ff);color:white;font-weight:900;
+}
+.next:disabled{opacity:.4;cursor:not-allowed}
+
+/* POPUP */
+.popupWrap{
+ position:fixed;inset:0;z-index:80;background:#000a;backdrop-filter:blur(8px);
+ display:flex;align-items:center;justify-content:center;padding:18px;
+}
+.popup{
+ width:min(560px,100%);max-height:85vh;overflow:auto;
+ padding:27px;border-radius:25px;background:#11172a;
+ border:1px solid #ffffff18;box-shadow:0 25px 100px #000;
+ animation:pop .3s ease;
+}
+@keyframes pop{from{opacity:0;transform:scale(.9) translateY(20px)}to{opacity:1;transform:none}}
+.resultIcon{font-size:45px}
+.popup h2{margin:8px 0}
+.solution{
+ margin-top:15px;padding:16px;border-radius:16px;background:#080d1b;
+ border:1px solid #ffffff0d;line-height:1.65;color:#dfe4f8;
+}
+.solution b{color:#8fa2ff}
+.close{
+ width:100%;padding:14px;margin-top:15px;border-radius:14px;
+ background:#202943;color:white;font-weight:850;
+}
+
+/* RESULT */
+.final{text-align:center;padding:40px 20px}
+.final .big{font-size:75px}
+.final h1{font-size:34px;margin:10px}
+.final p{color:#9da8c3}
+.finalStats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:25px 0}
+.finalStat{padding:20px;border-radius:18px;background:#12192c}
+.finalStat strong{font-size:27px;display:block;color:#7d9aff}
+.homeBtn{padding:14px 25px;border-radius:14px;background:#657cff;color:white;font-weight:900}
+
+/* MOBILE */
+@media(max-width:800px){
+ .modes{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:520px){
+ header{padding:12px}
+ main{width:min(100% - 20px,1150px);padding-top:15px}
+ .hero{padding:22px}
+ .modes{grid-template-columns:1fr 1fr;gap:10px}
+ .mode{padding:15px;border-radius:18px}
+ .modeIcon{font-size:29px}
+ .mode h3{font-size:15px}
+ .mode p{font-size:11px}
+ .questionCard{padding:19px}
+ .finalStats{grid-template-columns:1fr}
+ .brand{font-size:34px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<section id="intro">
+ <div class="orb"></div>
+ <div class="orb o2"></div>
+ <div class="introBox">
+   <div class="logo">🧠</div>
+   <div class="brand">Brain <span>TAX</span></div>
+   <div class="tag">Train Your Brain • Sharpen Your Mind</div>
+   <button class="start" onclick="showName()">START TRAINING</button>
+ </div>
+</section>
+
+<!-- NAME -->
+<section id="nameScreen" class="hidden">
+ <div class="nameCard">
+   <div class="nameIcon">👤</div>
+   <h1>Welcome to Brain TAX</h1>
+   <p>अपना नाम डालो और brain training शुरू करो</p>
+   <input id="nameInput" class="nameInput" maxlength="25"
+          placeholder="अपना नाम लिखें / Enter your name">
+   <button class="enterBtn" onclick="enterBrain()">ENTER BRAIN TAX 🚀</button>
+ </div>
+</section>
+
+<!-- APP -->
+<section id="app" class="hidden">
+<header>
+ <div class="headBrand">
+   <div class="miniLogo">🧠</div> Brain TAX
+ </div>
+ <div class="headRight">
+   <div class="xp">⭐ <span id="xp">0</span> XP</div>
+   <button id="backBtn" class="backBtn hidden" onclick="goHome()">← Back</button>
+ </div>
+</header>
+
+<main>
+
+ <!-- HOME -->
+ <section id="home">
+   <div class="hero">
+     <div class="hello">WELCOME BACK, <b id="userName">PLAYER</b></div>
+     <h1>Ready to <span>train your brain?</span></h1>
+     <p>हर दिन थोड़ा practice — दिमाग और focus दोनों stronger.</p>
+     <div class="stats">
+       <div class="stat">🔥 Streak: <b id="streak">0</b> days</div>
+       <div class="stat">🏆 Level: <b id="level">1</b></div>
+       <div class="stat">🎯 Solved: <b id="solved">0</b></div>
+     </div>
+   </div>
+
+   <div class="sectionTitle">🧠 Choose Your Brain Arena</div>
+
+   <div class="modes">
+    <button class="mode" onclick="startQuiz('puzzle')">
+      <div class="modeIcon">🧩</div>
+      <h3>Puzzle</h3>
+      <p>Logic, patterns & reasoning</p>
+      <span class="arrow">›</span>
+    </button>
+
+    <button class="mode" onclick="startQuiz('math')">
+      <div class="modeIcon">➗</div>
+      <h3>Mathematics</h3>
+      <p>Calculation & number power</p>
+      <span class="arrow">›</span>
+    </button>
+
+    <button class="mode" onclick="startQuiz('focus')">
+      <div class="modeIcon">🎯</div>
+      <h3>Focus</h3>
+      <p>Attention & concentration</p>
+      <span class="arrow">›</span>
+    </button>
+
+    <button class="mode" onclick="startQuiz('memory')">
+      <div class="modeIcon">🧠</div>
+      <h3>Memory</h3>
+      <p>Recall & memory training</p>
+      <span class="arrow">›</span>
+    </button>
+   </div>
+ </section>
+
+ <!-- QUIZ -->
+ <section id="quiz" class="hidden">
+   <div class="quizTop">
+     <div class="badge" id="quizType">PUZZLE</div>
+     <div class="time">⏱️ Solve time: <span id="timer">0.0</span>s</div>
+   </div>
+   <div class="progress"><i id="progressBar"></i></div>
+
+   <div class="questionCard">
+     <div class="qNum" id="qNum">QUESTION 1 / 5</div>
+     <div class="question" id="question"></div>
+     <div class="eng" id="english"></div>
+
+     <div class="options" id="options"></div>
+
+     <button id="nextBtn" class="next" onclick="nextQuestion()" disabled>
+       NEXT QUESTION →
+     </button>
+   </div>
+ </section>
+
+ <!-- FINAL -->
+ <section id="final" class="hidden">
+   <div class="final">
+     <div class="big">🏆</div>
+     <h1>Arena Complete!</h1>
+     <p id="finalText"></p>
+
+     <div class="finalStats">
+       <div class="finalStat">
+         <strong id="finalScore">0/5</strong>Score
+       </div>
+       <div class="finalStat">
+         <strong id="finalXP">+0</strong>XP Earned
+       </div>
+       <div class="finalStat">
+         <strong id="finalTime">0s</strong>Time
+       </div>
+     </div>
+
+     <button class="homeBtn" onclick="goHome()">← BACK TO HOME</button>
+   </div>
+ </section>
+
+</main>
+</section>
+
+<!-- SOLUTION POPUP -->
+<div id="popupWrap" class="popupWrap hidden">
+ <div class="popup">
+   <div class="resultIcon" id="resultIcon">❌</div>
+   <h2 id="resultTitle">Not quite!</h2>
+   <p id="resultText"></p>
+   <div class="solution">
+     <b>💡 Solution / हल:</b>
+     <div id="solutionText"></div>
+   </div>
+   <button class="close" onclick="closePopup()">समझ गया — Continue →</button>
+ </div>
+</div>
+
+<script>
+/* =========================
+   BRAIN TAX DATA
+========================= */
+
+const quizData = {
+
+puzzle:[
+ {
+  q:"श्रृंखला में अगली संख्या क्या होगी? 2, 4, 8, 16, ?",
+  e:"What is the next number? 2, 4, 8, 16, ?",
+  o:["20","24","32","36"], a:2,
+  s:"हर संख्या को 2 से multiply किया गया है: 2×2=4, 4×2=8, 8×2=16, इसलिए 16×2 = 32."
+ },
+ {
+  q:"एक घड़ी में 3:00 बजे हैं। घंटे और मिनट की सुई के बीच कोण कितना होगा?",
+  e:"At 3:00, what is the angle between the hour and minute hands?",
+  o:["30°","60°","90°","120°"],a:2,
+  s:"3:00 बजे minute hand 12 पर और hour hand 3 पर होती है। दोनों के बीच 90° का angle होता है."
+ },
+ {
+  q:"यदि सभी BLOOP, ZOOM हैं और सभी ZOOM, FAST हैं, तो BLOOP क्या हैं?",
+  e:"If all BLOOP are ZOOM and all ZOOM are FAST, what are BLOOP?",
+  o:["FAST","SLOW","RED","कुछ नहीं कहा जा सकता"],a:0,
+  s:"BLOOP → ZOOM और ZOOM → FAST, इसलिए BLOOP भी FAST होंगे."
+ },
+ {
+  q:"एक आदमी उत्तर की ओर 10m जाता है, फिर दाएँ 10m और फिर दाएँ 10m जाता है। वह शुरुआत से किस दिशा में है?",
+  e:"A man walks north 10m, right 10m, then right 10m. Which direction is he from the start?",
+  o:["उत्तर","दक्षिण","पूर्व","पश्चिम"],a:0,
+  s:"वह पहले उत्तर, फिर पूर्व और फिर दक्षिण जाता है। अंतिम position शुरुआत के उत्तर में 10m है."
+ },
+ {
+  q:"कौन-सा pattern अलग है?",
+  e:"Which pattern is different?",
+  o:["2,4,6,8","3,6,9,12","5,10,15,20","4,8,13,16"],a:3,
+  s:"पहले तीन patterns में हर बार समान संख्या add होती है। चौथे में अंतर समान नहीं है."
+ },
+ {
+  q:"यदि CAT को DBU लिखा जाए, तो DOG को कैसे लिखा जाएगा?",
+  e:"If CAT is coded as DBU, how will DOG be coded?",
+  o:["EPH","EOH","FPH","DPG"],a:0,
+  s:"हर अक्षर को alphabet में एक step आगे किया गया है: D→E, O→P, G→H."
+ },
+ {
+  q:"एक परिवार में 2 पिता और 2 बेटे हैं, लेकिन कुल केवल 3 लोग हैं। कैसे?",
+  e:"A family has 2 fathers and 2 sons but only 3 people. How?",
+  o:["दो भाई","दादा, पिता और बेटा","तीन दोस्त","दो चाचा और भतीजा"],a:1,
+  s:"तीन generations हैं: दादा पिता हैं, पिता पिता और बेटा दोनों हैं, और बेटा बेटा है."
+ }
+],
+
+math:[
+ {
+  q:"25 + 17 × 2 = ?",
+  e:"25 + 17 × 2 = ?",
+  o:["84","59","67","74"],a:1,
+  s:"पहले multiplication: 17×2=34. फिर 25+34=59."
+ },
+ {
+  q:"144 का square root कितना है?",
+  e:"What is the square root of 144?",
+  o:["10","11","12","14"],a:2,
+  s:"12×12 = 144, इसलिए √144 = 12."
+ },
+ {
+  q:"एक वस्तु ₹800 की है। 10% discount के बाद कीमत कितनी होगी?",
+  e:"An item costs ₹800. What is its price after a 10% discount?",
+  o:["₹700","₹720","₹740","₹780"],a:1,
+  s:"10% of ₹800 = ₹80. इसलिए ₹800−₹80 = ₹720."
+ },
+ {
+  q:"यदि x + 15 = 42, तो x = ?",
+  e:"If x + 15 = 42, what is x?",
+  o:["17","27","37","57"],a:1,
+  s:"दोनों sides से 15 घटाएँ: x = 42−15 = 27."
+ },
+ {
+  q:"3/4 का decimal रूप क्या है?",
+  e:"What is the decimal form of 3/4?",
+  o:["0.25","0.50","0.75","1.25"],a:2,
+  s:"3 ÷ 4 = 0.75."
+ },
+ {
+  q:"एक ट्रेन 60 km/h की speed से 2 घंटे चले तो दूरी कितनी होगी?",
+  e:"A train travels at 60 km/h for 2 hours. What distance does it cover?",
+  o:["30 km","60 km","120 km","180 km"],a:2,
+  s:"Distance = Speed × Time = 60 × 2 = 120 km."
+ },
+ {
+  q:"15 का 20% कितना है?",
+  e:"What is 20% of 15?",
+  o:["2","3","4","5"],a:1,
+  s:"20% = 20/100. इसलिए 15×20/100 = 3."
+ }
+],
+
+focus:[
+ {
+  q:"इनमें से कौन-सा शब्द बाकी तीन से अलग है?",
+  e:"Which word is different from the other three?",
+  o:["APPLE","MANGO","CARROT","BANANA"],a:2,
+  s:"Apple, Mango और Banana fruits हैं। Carrot vegetable है."
+ },
+ {
+  q:"ध्यान से देखें: A B A C A B A C A B ? अगला क्या होगा?",
+  e:"Look carefully: A B A C A B A C A B ? What comes next?",
+  o:["A","B","C","D"],a:2,
+  s:"Pattern ABA C बार-बार repeat हो रहा है। A B के बाद C आता है."
+ },
+ {
+  q:"यदि RED = 3 और BLUE = 4, तो GREEN में कितने letters हैं?",
+  e:"If RED = 3 and BLUE = 4, how many letters are in GREEN?",
+  o:["4","5","6","7"],a:1,
+  s:"GREEN में G, R, E, E, N — कुल 5 letters हैं."
+ },
+ {
+  q:"कौन-सा number बाकी से अलग है?",
+  e:"Which number is different?",
+  o:["16","25","36","48"],a:3,
+  s:"16=4², 25=5² और 36=6² perfect squares हैं। 48 perfect square नहीं है."
+ },
+ {
+  q:"यदि सोमवार के 3 दिन बाद कौन-सा दिन होगा?",
+  e:"What day is 3 days after Monday?",
+  o:["Tuesday","Wednesday","Thursday","Friday"],a:2,
+  s:"Monday → Tuesday (1) → Wednesday (2) → Thursday (3)."
+ },
+ {
+  q:"एक ही आकार के 5 circles में केवल एक में dot है। सही circle पहचानने के लिए सबसे जरूरी क्या है?",
+  e:"What is most important when identifying the only dotted circle?",
+  o:["Speed","Careful observation","Guessing","Random choice"],a:1,
+  s:"Focus test में careful observation सबसे जरूरी है; केवल speed या guessing से accuracy घटती है."
+ }
+],
+
+memory:[
+ {
+  q:"याद रखें: 7, 2, 9, 4, 1. इनमें तीसरा number कौन था?",
+  e:"Remember: 7, 2, 9, 4, 1. What was the third number?",
+  o:["7","2","9","4"],a:2,
+  s:"Sequence में positions: 1=7, 2=2, 3=9, 4=4, 5=1. इसलिए तीसरा number 9 है."
+ },
+ {
+  q:"याद रखें: APPLE, BOOK, TRAIN, MOON. दूसरा शब्द क्या था?",
+  e:"Remember: APPLE, BOOK, TRAIN, MOON. What was the second word?",
+  o:["APPLE","BOOK","TRAIN","MOON"],a:1,
+  s:"दूसरी position पर BOOK था."
+ },
+ {
+  q:"श्रृंखला याद रखें: 5, 8, 3, 9, 6. सबसे बड़ा number कौन था?",
+  e:"Remember: 5, 8, 3, 9, 6. Which was the largest?",
+  o:["5","8","3","9"],a:3,
+  s:"इन numbers में 9 सबसे बड़ा है."
+ },
+ {
+  q:"याद रखें: RED, BLUE, GREEN, YELLOW. तीसरा color?",
+  e:"Remember: RED, BLUE, GREEN, YELLOW. What was the third color?",
+  o:["RED","BLUE","GREEN","YELLOW"],a:2,
+  s:"तीसरा color GREEN था."
+ },
+ {
+  q:"याद रखें: 12, 18, 7, 25, 11. चौथा number क्या था?",
+  e:"Remember: 12, 18, 7, 25, 11. What was the fourth number?",
+  o:["7","18","25","11"],a:2,
+  s:"Sequence में चौथी position पर 25 था."
+ },
+ {
+  q:"याद रखें: CAT, DOG, HORSE, COW. सबसे पहले कौन था?",
+  e:"Remember: CAT, DOG, HORSE, COW. Which came first?",
+  o:["CAT","DOG","HORSE","COW"],a:0,
+  s:"Sequence का पहला word CAT था."
+ }
+]
+};
+
+/* =========================
+   STATE
+========================= */
+
+let player = localStorage.getItem("brainTaxName") || "";
+let xp = Number(localStorage.getItem("brainTaxXP") || 0);
+let solved = Number(localStorage.getItem("brainTaxSolved") || 0);
+let streak = Number(localStorage.getItem("brainTaxStreak") || 0);
+
+let currentMode="";
+let questions=[];
+let qIndex=0;
+let score=0;
+let selected=false;
+let startTime=0;
+let elapsedTimer=null;
+let totalStart=0;
+let earned=0;
+
+/* =========================
+   START
+========================= */
+
+function showName(){
+ document.getElementById("intro").classList.add("hidden");
+ document.getElementById("nameScreen").classList.remove("hidden");
+ setTimeout(()=>document.getElementById("nameInput").focus(),200);
+}
+
+function enterBrain(){
+ const input=document.getElementById("nameInput").value.trim();
+
+ if(!input){
+   document.getElementById("nameInput").focus();
+   document.getElementById("nameInput").style.borderColor="#ff5577";
+   return;
+ }
+
+ player=input;
+ localStorage.setItem("brainTaxName",player);
+
+ document.getElementById("nameScreen").classList.add("hidden");
+ document.getElementById("app").classList.remove("hidden");
+
+ updateHome();
+}
+
+/* Enter key */
+document.addEventListener("keydown",e=>{
+ if(e.key==="Enter" && !document.getElementById("nameScreen").classList.contains("hidden")){
+   enterBrain();
+ }
+});
+
+/* =========================
+   HOME
+========================= */
+
+function updateHome(){
+ document.getElementById("userName").textContent=player;
+ document.getElementById("xp").textContent=xp;
+ document.getElementById("solved").textContent=solved;
+ document.getElementById("streak").textContent=streak;
+ document.getElementById("level").textContent=Math.floor(xp/100)+1;
+}
+
+function goHome(){
+ stopTimer();
+
+ document.getElementById("home").classList.remove("hidden");
+ document.getElementById("quiz").classList.add("hidden");
+ document.getElementById("final").classList.add("hidden");
+ document.getElementById("backBtn").classList.add("hidden");
+
+ updateHome();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* =========================
+   QUIZ
+========================= */
+
+function startQuiz(mode){
+
+ currentMode=mode;
+ questions=[...quizData[mode]].sort(()=>Math.random()-.5).slice(0,5);
+
+ qIndex=0;
+ score=0;
+ earned=0;
+ totalStart=performance.now();
+
+ document.getElementById("home").classList.add("hidden");
+ document.getElementById("final").classList.add("hidden");
+ document.getElementById("quiz").classList.remove("hidden");
+ document.getElementById("backBtn").classList.remove("hidden");
+
+ document.getElementById("quizType").textContent=mode.toUpperCase();
+
+ loadQuestion();
+
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function loadQuestion(){
+
+ selected=false;
+
+ const q=questions[qIndex];
+
+ document.getElementById("qNum").textContent=
+  `QUESTION ${qIndex+1} / ${questions.length}`;
+
+ document.getElementById("question").textContent=q.q;
+ document.getElementById("english").textContent=q.e;
+
+ document.getElementById("progressBar").style.width=
+  `${((qIndex)/questions.length)*100}%`;
+
+ const options=document.getElementById("options");
+ options.innerHTML="";
+
+ q.o.forEach((text,i)=>{
+   const btn=document.createElement("button");
+   btn.className="option";
+   btn.innerHTML=`<span class="letter">${String.fromCharCode(65+i)}</span><span>${text}</span>`;
+   btn.onclick=()=>selectAnswer(i,btn);
+   options.appendChild(btn);
+ });
+
+ document.getElementById("nextBtn").disabled=true;
+ document.getElementById("nextBtn").textContent=
+   qIndex===questions.length-1 ? "FINISH ARENA 🏆" : "NEXT QUESTION →";
+
+ startQuestionTimer();
+}
+
+function startQuestionTimer(){
+ stopTimer();
+ startTime=performance.now();
+
+ elapsedTimer=setInterval(()=>{
+   const sec=(performance.now()-startTime)/1000;
+   document.getElementById("timer").textContent=sec.toFixed(1);
+ },100);
+}
+
+function stopTimer(){
+ if(elapsedTimer){
+   clearInterval(elapsedTimer);
+   elapsedTimer=null;
+ }
+}
+
+function selectAnswer(index,button){
+
+ if(selected)return;
+ selected=true;
+
+ stopTimer();
+
+ const q=questions[qIndex];
+ const all=document.querySelectorAll(".option");
+
+ all.forEach(x=>x.disabled=true);
+
+ if(index===q.a){
+   button.classList.add("correct");
+   score++;
+
+   const speed=(performance.now()-startTime)/1000;
+
+   /* fast but fair XP */
+   let points=10;
+   if(speed<5) points+=3;
+   else if(speed<10) points+=2;
+
+   earned+=points;
+   xp+=points;
+   solved++;
+
+   saveData();
+
+   document.getElementById("xp").textContent=xp;
+   document.getElementById("solved").textContent=solved;
+
+ }else{
+   button.classList.add("wrong");
+   all[q.a].classList.add("correct");
+
+   showSolution(false,q.o[q.a],q.s);
+ }
+
+ document.getElementById("nextBtn").disabled=false;
+}
+
+function nextQuestion(){
+
+ if(!selected)return;
+
+ if(qIndex<questions.length-1){
+   qIndex++;
+   loadQuestion();
+   window.scrollTo({top:0,behavior:"smooth"});
+ }else{
+   finishQuiz();
+ }
+}
+
+function finishQuiz(){
+
+ stopTimer();
+
+ const totalTime=(performance.now()-totalStart)/1000;
+
+ document.getElementById("quiz").classList.add("hidden");
+ document.getElementById("final").classList.remove("hidden");
+ document.getElementById("backBtn").classList.add("hidden");
+
+ document.getElementById("finalScore").textContent=
+   `${score}/${questions.length}`;
+
+ document.getElementById("finalXP").textContent=`+${earned}`;
+ document.getElementById("finalTime").textContent=
+   `${totalTime.toFixed(1)}s`;
+
+ document.getElementById("finalText").textContent=
+   `${player}, आपने ${score} सही किए। अगली arena में अपना record तोड़ो! 🔥`;
+
+ updateHome();
+ saveData();
+
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* =========================
+   SOLUTION POPUP
+========================= */
+
+function showSolution(correct,answer,solution){
+
+ document.getElementById("popupWrap").classList.remove("hidden");
+
+ document.getElementById("resultIcon").textContent=
+   correct ? "🎉" : "❌";
+
+ document.getElementById("resultTitle").textContent=
+   correct ? "Excellent!" : "Good Try!";
+
+ document.getElementById("resultText").innerHTML=
+   correct
+   ? "आपका answer सही है। Keep training! 🔥"
+   : `सही उत्तर: <b>${answer}</b>`;
+
+ document.getElementById("solutionText").textContent=solution;
+}
+
+function closePopup(){
+ document.getElementById("popupWrap").classList.add("hidden");
+}
+
+/* =========================
+   SAVE
+========================= */
+
+function saveData(){
+ localStorage.setItem("brainTaxXP",xp);
+ localStorage.setItem("brainTaxSolved",solved);
+ localStorage.setItem("brainTaxStreak",streak);
+}
+
+/* =========================
+   FIRST LOAD
+========================= */
+
+if(player){
+ /*
+   नाम पहले से saved है।
+   User को दोबारा name screen नहीं दिखेगी।
+ */
+ document.getElementById("intro").classList.add("hidden");
+ document.getElementById("nameScreen").classList.add("hidden");
+ document.getElementById("app").classList.remove("hidden");
+ updateHome();
+}
+
+/* Prevent accidental page selection while playing */
+document.addEventListener("visibilitychange",()=>{
+ if(document.hidden) stopTimer();
+});
+</script>
+
+</body>
+</html>
